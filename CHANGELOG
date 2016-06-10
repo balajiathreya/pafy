@@ -1,3 +1,140 @@
+31 May 2016
+Version 0.5.1
+
+[Bugfix] - Fix python 2 import (#134)
+[Bugfix] - Fix two bugs in the internal backend (major bug remains unfixed)
+[Update] - Remove deprecated signature argument
+
+-------------------------------------------------------------------------------
+
+28 February 2016
+Version 0.5.0
+
+[Feature] - Support both youtube-dl backend and internal backend (old 0.3.x
+            branch. This makes youtube-dl an optional dependency, though it
+            is more stable and thus recommended. There will be no more 0.3.x
+            releases, as this eliminates the need for them.
+
+            To use the internal backend even if youtube-dl is installed, set
+            the environmental variable PAFY_BACKEND to "internal".
+[Bugfix] - Fix UnicodeDecodeError(krishnawhite) (#129)
+[Bugfix] - Fix quality property
+
+-------------------------------------------------------------------------------
+
+1 January 2016
+Version 0.4.3
+
+[Feature] - get_playlist2() command with new interface and support for
+  playlists longer than 200 videos (ids1024)
+[Bugfix] - Fix ZeroDivisionError (cpnielsen) (#125)
+
+-------------------------------------------------------------------------------
+
+11 November 2015
+Version 0.4.2
+
+[Bugfix] - Fix crash when snippet has no tags property
+[Bugfix] - Fix issue with get_filesize on some streams
+[Bugfix] - Fix bigthumb and bigthumbhd (#118)
+[Feature] - Allow specifying youtube-dl arguments (#115 #120)
+
+-------------------------------------------------------------------------------
+
+
+4 October 2015
+Version 0.4.1
+
+[Bugfix] - Fix Pafy.streams
+
+-------------------------------------------------------------------------------
+
+4 October 2015
+Version 0.4.0
+
+[Major Update!] - Pull in youtube-dl as a dependency, replacing current 
+                  stream code [#109]
+
+This is a major change, and will likely prove controversial, so version
+0.3.76 has been released concurrently with all the changes not related to
+youtube-dl. This makes the code simpler and easier to maintain while fixing
+various bugs, but has some disadvantages.
+
+If this is a problem for you, please use version 0.3.76 AND state your reasons
+and suggestions at issue #110 on Github.
+https://github.com/mps-youtube/pafy/issues/110
+
+-------------------------------------------------------------------------------
+
+4 October 2015
+Version 0.3.76
+
+[Bugfix] - Fix bug in ytdl (#101 #102)
+[Update] - Use better method for matching urls (#104)
+[Bugfix] - Use .opus extension for opus audio (#108)
+
+-------------------------------------------------------------------------------
+
+1 June 2015
+Version 0.3.74
+
+[Bugfix] - Update to use gdata 3 instead of broken gdata 2 (#78)
+[Bugfix] - Fix ZeroDivisionError (#80)
+[Bugfix] - Fix ytdl with non-unicode terminal (#67)
+[Bugfix] - Fix 503 errors by retrying
+[Update] - Added mix method
+
+-------------------------------------------------------------------------------
+
+3 February 2015
+Version 0.3.72
+
+[Bugfix] - Fix issue with country restricted items (#74)
+
+-------------------------------------------------------------------------------
+
+1 February 2015
+Version 0.3.70
+
+[Bugfix] - Fix "Sign in to confirm your age" message on some videos
+
+-------------------------------------------------------------------------------
+
+13 January 2015
+Version 0.3.68
+
+[Update] - changed to LGPL license (was GPL) (#68)
+[Update] - Added getbestvideo function (#70)
+
+-------------------------------------------------------------------------------
+
+23 November 2014
+Version 0.3.66
+
+[Update] - Added new itags for 60fps and VP9 streams (298, 299, 302, 303)
+[Bugfix] - Fixed failure on certain video items (#59)
+[Update] - Added start/end data for playlist items (Dav1dde) (#62, #63)
+
+-------------------------------------------------------------------------------
+
+19 October 2014
+Version 0.3.64
+
+[Update] - Cache javascript file locally to temp dir (less fetching)
+[Update] - Added itag 278 (low-res VP9)
+[Feature] - Retrieve DASH streams (more streams, higher quality audio)
+[Feature] - added remux_audio parameter to download function to remux audio
+            files if ffmpeg or avconv is installed (better compatibility)
+
+-------------------------------------------------------------------------------
+
+27 August 2014
+Version 0.3.62
+
+[Feature] - Added url_https property to return https url
+
+-------------------------------------------------------------------------------
+
 15 August 2014
 Version 0.3.60
 
@@ -148,7 +285,7 @@ Version 0.3.34
 
 7 February 2014
 Version 0.3.33
-Authors: leokewitz, nagev
+Authors: leokewitz, np1
 
 [Feature] - Store html5player js data in memory to reduce repeat fetches
 [Feature] - Removed redundant looping in js function extraction
@@ -158,7 +295,7 @@ Authors: leokewitz, nagev
 
 4 February 2014
 Version 0.3.31
-Authors: nagev
+Authors: np1
 
 [Bugfix] - Handle error getting stream map
 [Bugfix] - Handle dollar character in js function name
@@ -167,7 +304,7 @@ Authors: nagev
 
 3 February 2014
 Version 0.3.30
-Authors: nagev
+Authors: np1
 
 [Bugfix] - Fix regex for decrypting signatures
 [Feature] - Added callback function for status reporting
@@ -176,7 +313,7 @@ Authors: nagev
 
 14 January 2014
 Version 0.3.26
-Authors: nagev
+Authors: np1
 
 [Feature] - Change dimensions property from (str, str) to (int, int)
 [Bugfix] - Replace bad characters in filenames
@@ -185,7 +322,7 @@ Authors: nagev
 
 15 December 2013
 Version 0.3.25
-Authors: nagev
+Authors: np1
 
 [Feature] Get video category metadata.
 
@@ -193,7 +330,7 @@ Authors: nagev
 
 12 December 2013
 Version 0.3.24
-Authors: hugovk, nagev
+Authors: hugovk, np1
 
 [Feature] Download function to return the name of file saved
 [Feature] Get video description
@@ -203,7 +340,7 @@ Authors: hugovk, nagev
 
 14 November 2013
 Version 0.3.23
-Authors: davidfischer-ch, nagev
+Authors: davidfischer-ch, np1
 
 [Bugfix] Fixed issue when no keywords specified for YouTube video
 [Bugfix] added UTF8 encoding declaration
@@ -214,7 +351,7 @@ Authors: davidfischer-ch, nagev
 
 27 October 2013
 Version 0.3.22
-Authors: nagev
+Authors: np1
 
 [Feature] Added Pafy.oggstreams and Pafy.m4astreams codec specific stream lists
 [Feature] Added Pafy.dimensions attribute to return resolution as a 2-tuple
@@ -230,7 +367,7 @@ Authors: nagev
 
 19 October 2013
 Version 0.3.20
-Authors: nagev
+Authors: np1
 
 [Feature] Added support for audio-only stream download (m4a and ogg vorbis)
 [Feature] Added support for video-only stream download (m4v)

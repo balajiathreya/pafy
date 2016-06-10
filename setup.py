@@ -9,26 +9,29 @@ python setup.py sdist bdist_wheel
 
 """
 
-try:
-    from setuptools import setup
-
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
+from pafy import __version__
 
 setup(
-    name='Pafy',
+    name='pafy',
     packages=['pafy'],
     scripts=['scripts/ytdl'],
-    version='0.3.60',
+    version=__version__,
     description="Retrieve YouTube content and metadata",
-    keywords=["Pafy", "API", "YouTube", "youtube", "download", "video"],
-    author="nagev",
+    keywords=["pafy", "API", "YouTube", "youtube", "download", "video"],
+    author="np1",
     author_email="np1nagev@gmail.com",
     url="http://np1.github.io/pafy/",
     download_url="https://github.com/np1/pafy/tarball/master",
-    package_data={"": ["LICENSE", "README.rst", "CHANGELOG"]},
+    extras_require={
+        'youtube-dl-backend': ["youtube-dl"],
+        },
+    package_data={"": ["LICENSE", "README.rst", "CHANGELOG", "AUTHORS"]},
+    include_package_data=True,
+    license='LGPLv3',
     classifiers=[
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "License :: OSI Approved :: GNU Lesser General Public License v3 "
+        "(LGPLv3)",
         "Operating System :: POSIX :: Linux",
         "Operating System :: MacOS",
         "Operating System :: MacOS :: MacOS 9",
@@ -42,7 +45,6 @@ setup(
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Intended Audience :: Developers",

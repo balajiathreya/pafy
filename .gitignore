@@ -1,5 +1,5 @@
 MANIFEST
-docs-sphinx/_build/
+doc/_build/
 *.help
 .tox
 .coverage
@@ -9,4 +9,5 @@ dev/
 .test
 *.pyc
 .pypi
+vi.py
 __pycache__

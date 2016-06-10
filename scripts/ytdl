@@ -2,26 +2,26 @@
 
 """ pafy - Command Line Downloader Tool - ytdl.
 
-Copyright (C)  2013-2014 nagev
+Copyright (C)  2013-2014 np1
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU Lesser General Public License along
+with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 
 from __future__ import print_function, unicode_literals
 import pafy
 import sys
+import os
 
 early_py_version = sys.version_info[:2] < (2, 7)
 
@@ -39,9 +39,33 @@ except ImportError:
         raise
 
 
-__version__ = "0.3.46"
-__author__ = "nagev"
-__license__ = "GPLv3"
+__version__ = "0.3.67"
+__author__ = "np1"
+__license__ = "LGPLv3"
+
+mswin = os.name == "nt"
+
+not_utf8_environment = mswin or "UTF-8" not in os.environ.get("LANG", "")
+
+def utf8_replace(txt):
+    """ Replace unsupported characters in unicode string, returns unicode. """
+    sse = sys.stdout.encoding
+    txt = txt.encode(sse, "replace").decode("utf8", "ignore")
+    return txt
+
+
+def xenc(stuff):
+    """ Replace unsupported characters. """
+    if sys.stdout.isatty():
+        return utf8_replace(stuff) if not_utf8_environment else stuff
+
+    else:
+        return stuff.encode("utf8", errors="replace")
+
+
+def xprint(stuff, end=None):
+    """ Compatible print. """
+    print(xenc(stuff), end=end)
 
 
 def download(video, audio=False, stream=None):
@@ -59,10 +83,10 @@ def download(video, audio=False, stream=None):
     if early_py_version:
         dl_str = "-Downloading '{0}' [{1} Bytes]"
 
-    print(dl_str.format(stream.filename, size))
-    print("-Quality: %s; Format: %s" % (stream.quality, stream.extension))
+    xprint(dl_str.format(stream.filename, size))
+    xprint("-Quality: %s; Format: %s" % (stream.quality, stream.extension))
     stream.download(quiet=False)
-    print("\nDone")
+    xprint("\nDone")
 
 
 def printstreams(streams):
@@ -81,11 +105,11 @@ def printstreams(streams):
         out.append(fstring.format(n + 1, s.mediatype, s.extension, q, megs))
 
     sys.stdout.write("\r")
-    print(fstring.format("Stream", "Type", "Format", "Quality", " Size"))
-    print(fstring.format("------", "----", "------", "-------", " ----"))
+    xprint(fstring.format("Stream", "Type", "Format", "Quality", " Size"))
+    xprint(fstring.format("------", "----", "------", "-------", " ----"))
 
     for x in out:
-        print(x)
+        xprint(x)
 
 
 def main():
@@ -131,7 +155,7 @@ def main():
 
     # if requested print vid info and list streams
     if args.i:
-        print(vid)
+        xprint(vid)
 
     if args.s:
         printstreams(streams)
@@ -139,7 +163,7 @@ def main():
     if args.b or args.a:
 
         if args.a and args.b:
-            print("-a and -b cannot be used together! Use only one.")
+            xprint("-a and -b cannot be used together! Use only one.")
 
         else:
             download(vid, audio=args.a)
@@ -154,7 +178,7 @@ def main():
         except IndexError:
             em = "Sorry, %s is not a valid option, use 1-%s"
             em = em % (int(args.n), len(streams))
-            print(em)
+            xprint(em)
 
     if not any([args.i, args.s, args.b, args.n, args.t, args.a]):
         streams = vid.streams + vid.audiostreams[::-1]
